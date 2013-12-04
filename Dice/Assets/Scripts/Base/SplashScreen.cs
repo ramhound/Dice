@@ -44,14 +44,14 @@ public class SplashScreen : MonoBehaviour {
     }
 
     void Start() {
-        if(startingOperation != null && startingOperation.isThreaded) {
+        if(startingOperation.className != String.Empty && startingOperation.isThreaded) {
             concurrentThread = new Thread(StartOperation);
             concurrentThread.Name = "Splash Screen Thread";
             concurrentThread.IsBackground = true;
             if(onStartOperationStarted != null)
                 onStartOperationStarted(this);
             concurrentThread.Start();
-        } else if(startingOperation != null) {
+		} else if(startingOperation.className != String.Empty) {
             if(onStartOperationStarted != null)
                 onStartOperationStarted(this);
             StartOperation();
