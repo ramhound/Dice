@@ -82,7 +82,7 @@ public static partial class TransformExtensions {
         List<T> children = new List<T>();
         children.AddRange(new List<T>(transform.FindChildrenByType<T>()));
         for(int i = 0; i < transform.childCount; i++) {
-            children.AddRange(new List<T>(transform.FindChildrenByTypeRecursively<T>()));
+            children.AddRange(new List<T>(transform.GetChild(i).FindChildrenByTypeRecursively<T>()));
         } return children.ToArray();
     }
 
@@ -239,7 +239,7 @@ public static partial class TransformExtensions {
         List<Transform> children = new List<Transform>();
         children.AddRange(new List<Transform>(transform.FindChildrenByTag(tag)));
         for(int i = 0; i < transform.childCount; i++) {
-            children.AddRange(new List<Transform>(transform.FindChildrenByTagRecursively(tag)));
+            children.AddRange(new List<Transform>(transform.GetChild(i).FindChildrenByTagRecursively(tag)));
         } return children.ToArray();
     }
 
@@ -253,7 +253,7 @@ public static partial class TransformExtensions {
         List<T> children = new List<T>();
         children.AddRange(new List<T>(transform.FindChildrenByTag<T>(tag)));
         for(int i = 0; i < transform.childCount; i++) {
-            children.AddRange(new List<T>(transform.FindChildrenByTagRecursively<T>(tag)));
+            children.AddRange(new List<T>(transform.GetChild(i).FindChildrenByTagRecursively<T>(tag)));
         } return children.ToArray();
     }
 
@@ -407,7 +407,7 @@ public static partial class TransformExtensions {
         List<Transform> children = new List<Transform>();
         children.AddRange(new List<Transform>(transform.FindChildrenByName(name)));
         for(int i = 0; i < transform.childCount; i++) {
-            children.AddRange(new List<Transform>(transform.FindChildrenByNameRecursively(name)));
+            children.AddRange(new List<Transform>(transform.GetChild(i).FindChildrenByNameRecursively(name)));
         } return children.ToArray();
     }
 
@@ -421,7 +421,7 @@ public static partial class TransformExtensions {
         List<T> children = new List<T>();
         children.AddRange(new List<T>(transform.FindChildrenByName<T>(name)));
         for(int i = 0; i < transform.childCount; i++) {
-            children.AddRange(new List<T>(transform.FindChildrenByNameRecursively<T>(name)));
+            children.AddRange(new List<T>(transform.GetChild(i).FindChildrenByNameRecursively<T>(name)));
         } return children.ToArray();
     }
 
@@ -582,7 +582,7 @@ public static partial class TransformExtensions {
         List<Transform> children = new List<Transform>();
         children.AddRange(new List<Transform>(transform.FindChildrenByBeginningOfName(part)));
         for(int i = 0; i < transform.childCount; i++) {
-            children.AddRange(new List<Transform>(transform.FindChildrenByNameRecursively(part)));
+            children.AddRange(new List<Transform>(transform.GetChild(i).FindChildrenByNameRecursively(part)));
         } return children.ToArray();
     }
 
@@ -596,7 +596,7 @@ public static partial class TransformExtensions {
         List<T> children = new List<T>();
         children.AddRange(new List<T>(transform.FindChildrenByBeginningOfName<T>(part)));
         for(int i = 0; i < transform.childCount; i++) {
-            children.AddRange(new List<T>(transform.FindChildrenByNameRecursively<T>(part)));
+            children.AddRange(new List<T>(transform.GetChild(i).FindChildrenByNameRecursively<T>(part)));
         } return children.ToArray();
     }
 
@@ -755,7 +755,7 @@ public static partial class TransformExtensions {
         List<Transform> children = new List<Transform>();
         children.AddRange(new List<Transform>(transform.FindChildrenByEndOfName(part)));
         for(int i = 0; i < transform.childCount; i++) {
-            children.AddRange(new List<Transform>(transform.FindChildrenByEndOfNameRecursively(part)));
+            children.AddRange(new List<Transform>(transform.GetChild(i).FindChildrenByEndOfNameRecursively(part)));
         } return children.ToArray();
     }
 
@@ -769,7 +769,7 @@ public static partial class TransformExtensions {
         List<T> children = new List<T>();
         children.AddRange(new List<T>(transform.FindChildrenByEndOfName<T>(part)));
         for(int i = 0; i < transform.childCount; i++) {
-            children.AddRange(new List<T>(transform.FindChildrenByEndOfNameRecursively<T>(part)));
+            children.AddRange(new List<T>(transform.GetChild(i).FindChildrenByEndOfNameRecursively<T>(part)));
         } return children.ToArray();
     }
 
@@ -928,7 +928,7 @@ public static partial class TransformExtensions {
         List<Transform> children = new List<Transform>();
         children.AddRange(new List<Transform>(transform.FindChildrenByPartOfName(part)));
         for(int i = 0; i < transform.childCount; i++) {
-            children.AddRange(new List<Transform>(transform.FindChildrenByPartOfNameRecursively(part)));
+            children.AddRange(new List<Transform>(transform.GetChild(i).FindChildrenByPartOfNameRecursively(part)));
         } return children.ToArray();
     }
 
@@ -942,7 +942,7 @@ public static partial class TransformExtensions {
         List<T> children = new List<T>();
         children.AddRange(new List<T>(transform.FindChildrenByPartOfName<T>(part)));
         for(int i = 0; i < transform.childCount; i++) {
-            children.AddRange(new List<T>(transform.FindChildrenByPartOfNameRecursively<T>(part)));
+            children.AddRange(new List<T>(transform.GetChild(i).FindChildrenByPartOfNameRecursively<T>(part)));
         } return children.ToArray();
     }
 

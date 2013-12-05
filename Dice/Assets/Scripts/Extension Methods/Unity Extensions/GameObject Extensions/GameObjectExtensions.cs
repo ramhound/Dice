@@ -415,7 +415,7 @@ public static partial class GameObjectExtensions {
         List<GameObject> children = new List<GameObject>();
         children.AddRange(new List<GameObject>(gameObject.FindChildrenByName(name)));
         for(int i = 0; i < gameObject.transform.childCount; i++) {
-            children.AddRange(new List<GameObject>(gameObject.FindChildrenByNameRecursively(name)));
+            children.AddRange(new List<GameObject>(gameObject.transform.GetChild(i).gameObject.FindChildrenByNameRecursively(name)));
         } return children.ToArray();
     }
 
@@ -429,7 +429,7 @@ public static partial class GameObjectExtensions {
         List<T> children = new List<T>();
         children.AddRange(new List<T>(gameObject.transform.FindChildrenByName<T>(name)));
         for(int i = 0; i < gameObject.transform.childCount; i++) {
-            children.AddRange(new List<T>(gameObject.transform.FindChildrenByNameRecursively<T>(name)));
+            children.AddRange(new List<T>(gameObject.transform.GetChild(i).FindChildrenByNameRecursively<T>(name)));
         } return children.ToArray();
     }
 

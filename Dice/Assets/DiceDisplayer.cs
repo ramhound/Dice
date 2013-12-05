@@ -2,44 +2,23 @@
 using System.Collections;
 
 public class DiceDisplayer : MonoBehaviour {
+    private Die[] dice { get; set; }
+    public static bool rolling;
 
-	private SpriteRenderer dieRenderer;
-	public Sprite[] dice;
-	public float rollDuration;
-	public float rollRate;
-	private bool rolling;
-	private RotateDie rotator;
+    // Use this for initialization
+    void Start() {
+        dice = transform.Find("Dice").FindChildrenByBeginningOfName<Die>("Die");
+    }
 
-	// Use this for initialization
-	void Start () {
-		dieRenderer = transform.FindByName<SpriteRenderer>("Die");
-		rotator = transform.FindByName<RotateDie>("Die");
-	}
-	
-	public void RollDice() {
-		dieRenderer.enabled = true;
+    public void RollDice() {
+        foreach(Die die in dice)
+            die.ShowDie(true);
 
-			if(!rolling){
-			StartCoroutine(Roll(Random.Range (0, 6)));
-			StartCoroutine(StopRolling());
-			rotator.shouldRoll = true;
-			}
-	}
+        if(!rolling) {
+            rolling = true;
 
-	private IEnumerator Roll(int diceNumber) {
-
-		rolling = true;
-		while(rolling){
-			yield return new WaitForSeconds(rollRate);
-			dieRenderer.sprite = dice[Random.Range (0, 6)];
-		}
-		dieRenderer.sprite = dice[diceNumber];
-	}
-
-	private IEnumerator StopRolling() {
-		yield return new WaitForSeconds(rollDuration);
-		rolling = false;
-		rotator.shouldRoll = false;
-
-	}
+            foreach(Die die in dice)
+                die.StartRolling();
+        }
+    }
 }
