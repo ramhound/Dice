@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Die : MonoBehaviour {
+public class Die : MonoBehaviour
+{
     //private static Sprite[] _dice;
     public Sprite[] dice;
 
@@ -15,7 +16,7 @@ public class Die : MonoBehaviour {
 
     public float minRollDuration { get; set; }
     public float maxRollDuration { get; set; }
-    private float curretRollDuration;
+    private float currentRollDuration;
 
     [HideInInspector]
     public bool rolling;
@@ -23,7 +24,8 @@ public class Die : MonoBehaviour {
     public int value = 0;
     private static int rollCounter;
 
-    void Awake() {
+    void Awake()
+    {
         minRotationSpeed = 300f;
         maxRotationSpeed = 600f;
 
@@ -31,51 +33,64 @@ public class Die : MonoBehaviour {
         maxRollDuration = 2f;
     }
 
-    void OnEnable() {
+    void OnEnable()
+    {
 
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         //_dice = dice;
         _rollRate = rollRate;
         dieRenderer = gameObject.GetComponent<SpriteRenderer>();
         rotator = gameObject.GetComponent<RotateDie>();
-	}
+    }
 
-    public void ShowDie(bool show) {
+    public void ShowDie(bool show)
+    {
         gameObject.SetActive(show);
     }
 
-    public void StartRolling() {
+    public void StartRolling()
+    {
         rotator.rotationSpeed = Random.Range(0, 100) % 2 == 0 ? Random.Range(minRotationSpeed, maxRotationSpeed) :
                                                                -Random.Range(minRotationSpeed, maxRotationSpeed);
-        curretRollDuration = Random.Range(minRollDuration, maxRollDuration);
+        currentRollDuration = Random.Range(minRollDuration, maxRollDuration);
         StartCoroutine(Roll());
     }
 
-    private IEnumerator Roll() {
+    private IEnumerator Roll()
+    {
         ++rollCounter;
         rolling = true;
         rotator.StartRotation();
-        StartCoroutine(StopRolling());
-        while(rolling) {
+        StartCoroutine(StopRollingTimer());
+        while (rolling)
+        {
             yield return new WaitForSeconds(_rollRate);
             value = Random.Range(0, 6);
             dieRenderer.sprite = dice[value++];
         }
-        print(value);
-        rotator.StopRotation();
         RollFinished();
     }
 
-    private IEnumerator StopRolling() {
-        yield return new WaitForSeconds(curretRollDuration);
+    private IEnumerator StopRollingTimer()
+    {
+        yield return new WaitForSeconds(currentRollDuration);
         rolling = false;
     }
 
-    private void RollFinished() {
-        if(--rollCounter == 0)
+    private void RollFinished()
+    {
+        //print(value);
+        GameManager.dieValues[value - 1]++;
+        rotator.StopRotation();
+        if (--rollCounter == 0)
+        {
             DiceDisplayer.rolling = false;
+            ScoreChecker.Checker();
+         
+        }
     }
 }

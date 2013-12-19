@@ -17,7 +17,8 @@ public class RollButton : MonoBehaviour {
 
 	void OnMouseUpAsButton() {
 
+        GameManager.dieValues.Clear();
+        //remove selected die
 		displayer.RollDice();
-
 	}
 }
