@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance { get; private set; }
 
     public static RollValues dieValues;
+    public static RollValues selectedDieValues;
     public static int score;
     public static int totalScore;
 
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour {
     {
         instance = this;
         dieValues = new RollValues(6);
+        score = 0;
         totalScore = 0;
     }
 
@@ -19,7 +21,7 @@ public class GameManager : MonoBehaviour {
 	void Start () {
         //GameObject[] dice = gameObject.FindChildrenByBeginningOfNameRecursively("Die");
         //foreach(GameObject go in dice)
-        //    go.SetActive(false);
+            //go.SetActive(false);
 
 
 	}

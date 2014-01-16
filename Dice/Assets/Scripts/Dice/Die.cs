@@ -4,6 +4,7 @@ using System.Collections;
 public class Die : MonoBehaviour
 {
     //private static Sprite[] _dice;
+
     public Sprite[] dice;
 
     private static float _rollRate;
@@ -21,8 +22,10 @@ public class Die : MonoBehaviour
     [HideInInspector]
     public bool rolling;
 
+    public bool selected;
     public int value = 0;
     private static int rollCounter;
+    public static int selectedCounter;
 
     void Awake()
     {
@@ -45,6 +48,8 @@ public class Die : MonoBehaviour
         _rollRate = rollRate;
         dieRenderer = gameObject.GetComponent<SpriteRenderer>();
         rotator = gameObject.GetComponent<RotateDie>();
+        selected = false;
+        selectedCounter = 0;
     }
 
     public void ShowDie(bool show)
@@ -89,8 +94,33 @@ public class Die : MonoBehaviour
         if (--rollCounter == 0)
         {
             DiceDisplayer.rolling = false;
-            ScoreChecker.Checker();
-         
+            ScoreChecker.InitialChecker();
+
+        }
+    }
+
+    void OnMouseUpAsButton()
+    {
+        selected = !selected;
+        Enlarge();
+        Debug.Log(selected);
+        //foreach (GameObject value in Die.selectedDice)
+        //Debug.Log(value);
+  
+    }
+
+    void Enlarge()
+    {
+        if (selected)
+        {
+            gameObject.transform.localScale = new Vector3(0.25f, 0.25f, 0f);
+            selectedCounter++;
+
+        }
+        else
+        {
+            gameObject.transform.localScale = new Vector3(0.2f, 0.2f, 0f);
+            selectedCounter--;
         }
     }
 }
